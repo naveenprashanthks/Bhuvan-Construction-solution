@@ -50,6 +50,23 @@
   .stage{
     position:relative;height:calc(100vh - 68px);max-height:1200px;overflow:hidden;
   }
+  .hero-content {
+  position: relative;
+  z-index: 1; /* above video */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-logo {
+  max-width: 180px;  /* adjust as needed */
+  margin-bottom: 20px;
+}
+
   /* overlay UI on hero */
   .hero-ui{
     position:absolute;left:28px;top:110px;z-index:30;max-width:520px;
@@ -130,18 +147,55 @@
   /* small polish */
   .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
   .reveal.show{opacity:1;transform:none}
+
+  .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  background: transparent; /* keep video visible */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  height: 50px;
+  width: auto;
+}
+
+nav a {
+  margin-left: 20px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
 </style>
 </head>
 <body>
 
-<header>
+<header class="site-header">
   <div class="brand">
-    <div class="logo">B</div>
-    <div>
+    <img src="LOGO 1.png" alt="Bhuvan Construction Logo" class="brand-logo">
+    <div class="brand-text">
       <div style="font-weight:700">Bhuvan Construction</div>
       <div style="font-size:12px;color:var(--muted)">Construction & Solutions</div>
     </div>
   </div>
+
   <nav aria-label="Main navigation">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -150,6 +204,7 @@
     <a href="contact.html">Contact</a>
   </nav>
 </header>
+
 
 <main>
     
@@ -162,6 +217,11 @@
     <source src="Tamil_Nadu_Miniature_Construction_Drone_Shot.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+  <div class="hero-content">
+  <img src="LOGO 1.png" alt="Bhuvan Construction Logo" class="hero-logo">
+  <h1>Bhuvan Construction & Solutions</h1>
+  <p>Building Trust. Delivering Quality.</p>
+</div>
 
       <!-- Overlay UI (left) -->
       <div class="hero-ui" id="heroUi">
