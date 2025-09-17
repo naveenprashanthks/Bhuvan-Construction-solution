@@ -3,41 +3,319 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Bhuvan Construction</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Contact Us - Bhuvan Construction</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Background video */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    /* Blur overlay */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: -1;
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 5;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      height: 40px;
+    }
+
+    .brand span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a { 
+      color: #fff; 
+      text-decoration: none; 
+      font-weight: 500; 
+    }
+    nav a:hover { text-decoration: underline; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 0;
+    }
+    .mobile-menu a:hover {
+      text-decoration: underline;
+    }
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    /* Chat Card */
+    .chat-card {
+      width: 400px;
+      max-width: 90%;
+      aspect-ratio: 4/3;
+      margin: 120px auto 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    /* Watermark Logo */
+    .chat-card::before {
+      content: "";
+      background: url('logo1.png') center/150px no-repeat;
+      opacity: 0.08;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+    }
+
+    .chat-card h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: #333;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Helper text */
+    .helper-text {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      color: #444;
+      position: relative;
+      z-index: 1;
+    }
+
+    .location-link {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #25d366;
+      font-weight: bold;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+    .location-link:hover { text-decoration: underline; }
+
+    .input-area {
+      display: flex;
+      position: relative;
+      z-index: 1;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px 0 0 10px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .input-area button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      background: #25d366;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .input-area button:hover { background: #1ebe57; }
+
+    /* Floating Button - Mobile Only */
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: #fff;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: none; /* hidden by default */
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+      background: #1ebe57;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .chat-card {
+        width: 95%;
+        aspect-ratio: auto;
+        height: auto;
+        padding: 15px;
+      }
+      .chat-card h2 { font-size: 1rem; }
+      .input-area input { font-size: 0.9rem; }
+      .input-area button { font-size: 0.9rem; }
+
+      .floating-btn {
+        display: flex; /* only show on mobile */
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>Bhuvan Construction</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
 
-<section class="main">
-  <h2>Contact Us</h2>
-  <form onsubmit="sendMail(event)">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea rows="5" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-</section>
+  <!-- Background video -->
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="videos/gradient.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
 
-<div class="floating-buttons">
-  <a href="https://wa.me/916381443149" class="whatsapp">&#128172;</a>
-  <a href="tel:+916381443149" class="call">&#9742;</a>
-</div>
+  <!-- Navbar -->
+  <header>
+    <div class="brand">
+      <img src="images/LOGO 1.png" alt="Logo">
+      <span>Bhuvan Construction</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
 
-<script>
-function sendMail(e){
-  e.preventDefault();
-  alert("Thanks for contacting us! We'll get back to you soon.");
-}
-</script>
+  <!-- Chat card -->
+  <div class="chat-card">
+    <h2>Enter your query here!</h2>
+    <p class="helper-text">Send your message here 👇</p>
+    <a class="location-link" href="https://maps.app.goo.gl/naTWfH2r7dGfC4dQ9" target="_blank">📍 Location</a>
+    <div class="input-area">
+      <input id="msg" type="text" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Floating Contact Button -->
+  <div class="floating-btn" onclick="openWhatsApp()">💬</div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("mobileMenu").classList.toggle("active");
+    }
+
+    function sendMessage() {
+      let msg = document.getElementById("msg").value.trim();
+      if (msg) {
+        let phone = "916381443149"; // your WhatsApp number
+        let url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+        window.open(url, "_blank");
+      }
+    }
+
+    function openWhatsApp() {
+      let phone = "916381443149"; // your WhatsApp number
+      let msg = "Hello, I’d like to know more about your services!";
+      let url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    }
+  </script>
 </body>
 </html>
