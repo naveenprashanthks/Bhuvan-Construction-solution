@@ -7,10 +7,57 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
+  /* Desktop default */
+.nav-toggle {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 2000; /* always above hero */
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px; /* below header */
+    right: 20px;
+    background: rgba(0,0,0,0.9);
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1500; /* above hero & video */
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    padding: 8px 0;
+  }
+}
+
   :root{
     --accent:#f8b400;
     --dark:#0f1724;
-    --muted:#ffffff;
+    --muted:#ffbf00;
     --glass: rgba(255,255,255,0.06);
     --white:#ffffff
   }
@@ -34,9 +81,8 @@
 
   /* Hero - 3D canvas area */
   
-  .hero {
-    height:100vh;min-height:620px;padding-top:68px;display:flex;flex-direction:column;
-  }
+  
+
   .hero-video {
   position: fixed;
   top: 0;
@@ -50,33 +96,35 @@
   .stage{
     position:relative;height:calc(100vh - 68px);max-height:1200px;overflow:hidden;
   }
-  .hero-content {
+.hero-content {
   position: relative;
-  z-index: 1; /* above video */
+  z-index: 1000; /* above video */
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #fff;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
 }
+  
 
 .hero-logo {
   max-width: 180px;  /* adjust as needed */
-  margin-bottom: 20px;
+  margin-bottom: 1960px;
 }
 
   /* overlay UI on hero */
   .hero-ui{
     position:absolute;left:28px;top:110px;z-index:30;max-width:520px;
-    background:linear-gradient(180deg, rgba(10,12,18,0.48), rgba(8,10,14,0.32));
-    border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.04);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 10px 30px rgba(2,6,12,0.6);
+    background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.75));
+    border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   }
-  .hero-ui h1{font-size:34px;margin:0 0 8px 0;line-height:1.02}
-  .hero-ui p{color:var(--muted);margin:0 0 14px 0}
+  .hero-ui h1{font-size:34px;margin:0 0 8px 0;line-height:1.02;color:#ffffff;text-shadow:2px 2px 4px rgba(0,0,0,0.9)}
+  .hero-ui p{color:#ffffff;margin:0 0 14px 0;text-shadow:1px 1px 3px rgba(0,0,0,0.8)}
   .cta-row{display:flex;gap:12px;align-items:center}
   .btn{padding:10px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer;}
   .btn-primary{background:linear-gradient(90deg,var(--accent),#ff7a00);color:#07101a;box-shadow: 0 8px 30px rgba(248,180,0,0.14);}
@@ -84,15 +132,18 @@
 
   /* Stats bar */
   .stats-bar{display:flex;gap:16px;position:absolute;right:28px;top:110px;z-index:30}
-  .stat{background:var(--glass);padding:12px 18px;border-radius:12px;min-width:120px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-  .stat .num{font-weight:800;font-size:20px;color:var(--muted)}
-  .stat .label{font-size:12px;color:var(--muted)}
+  .stat{background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);padding:12px 18px;border-radius:12px;min-width:120px;text-align:center;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+  .stat .num{font-weight:800;font-size:20px;color:#ffffff;text-shadow:1px 1px 3px rgba(0,0,0,0.8)}
+  .stat .label{font-size:12px;color:#ffffff;text-shadow:1px 1px 2px rgba(0,0,0,0.8)}
 
   /* Sections */
-  section{padding:60px 6vw;color: #e6eef8}
+  section{padding:30px 6vw;color: #e6eef8}
+  .section-title{background-color:rgba(0,0,0,0.4);text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    border-radius:12px;padding:18px 24px;margin-bottom:30px;max-width:720px;
+  }
   .section-title{display:flex;align-items:end;gap:12px;margin-bottom:18px}
   .section-title h2{margin:0;font-size:28px;letter-spacing:0.2px}
-  .section-title p{color:var(--muted);font-size:13px;margin:0}
+  .section-title p{color:var(--white);font-size:13px;margin:0}
 
   /* Showcase grid */
   .showcase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -108,8 +159,8 @@
   /* Animated counters small */
   .counters{display:flex;gap:20px;flex-wrap:wrap}
   .counter{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;min-width:150px;text-align:center}
-  .counter .big{font-size:28px;font-weight:800;color:var(--accent)}
-  .counter .lbl{font-size:12px;color:var(--muted)}
+  .counter .big{font-size:28px;font-weight:800;color:var(--dark)}
+  .counter .lbl{font-size:12px;color:var(--white)}
 
   /* Parallax CTA strip */
   .cta-strip{display:flex;justify-content:space-between;align-items:center;padding:30px;border-radius:12px;background:linear-gradient(90deg,#071021, #0b1626);border:1px solid rgba(255,255,255,0.03);margin-top:24px}
@@ -128,21 +179,78 @@
   /* Footer */
   footer{padding:24px;text-align:center;color:var(--muted);font-size:13px}
 
+  /* Logo styles */
+  /* Hero right logo - desktop only */
+  .hero-right-logo {
+    position: absolute;
+    right: 120px;
+    bottom: 80px;
+    z-index: 25;
+    display: none; /* Hidden by default */
+  }
+  
+  .hero-right-logo img {
+    max-width: 200px;
+    height: auto;
+    opacity: 10;
+  }
+  
+  /* Desktop logo below counters */
+  .desktop-logo {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    padding: 0 20px;
+  }
+  
+  
+  
+
+  
+
   /* Responsiveness */
+  @media (min-width: 769px) {
+    /* Desktop: Show hero right logo and hide header */
+    .hero-right-logo {
+      display: block;
+    }
+    .site-header {
+      display: none;
+    }
+  }
+  
   @media (max-width:1000px){
     .showcase-grid{grid-template-columns:repeat(2,1fr)}
     .hero-ui{left:18px;right:18px;top:80px;max-width:unset}
-    .stats-bar{display:none}
+    .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap}
+  }
+  @media (max-width:768px){
+    /* Mobile: Hide hero right logo and desktop logo, show header, keep only hero center logo */
+    .hero-right-logo {
+      display: none;
+    }
+    .desktop-logo {
+      display: none;
+    }
+    .site-header {
+      display: flex;
+    }
+    .section-title{top:10pfx;flex-direction:column;align-items:flex-start}
+    .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap;gap:10px;display:flex !important}
+    .counters{justify-content:center}
   }
   @media (max-width:640px){
     nav{display:none}
-    .hero-ui{top:70px;padding:14px}
+    .hero-ui{top:240px;padding:14px}
     .hero-ui h1{font-size:22px}
     .hero-ui p{font-size:13px}
     .showcase-grid{grid-template-columns:1fr}
     .card img{height:180px}
     .stat{min-width:unset;padding:8px 12px}
+    .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap;gap:10px;display:flex !important}
+    .counters{justify-content:center}
   }
+  
 
   /* small polish */
   .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
@@ -182,6 +290,46 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+/* Default desktop */
+.nav-toggle {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 11;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px; /* below header */
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
+
+
 
 </style>
 </head>
@@ -189,21 +337,26 @@ nav a:hover {
 
 <header class="site-header">
   <div class="brand">
-    <img src="LOGO 1.png" alt="Bhuvan Construction Logo" class="brand-logo">
+    <img src="images/LOGO 1.png" alt="Bhuvan Construction Logo" class="brand-logo">
     <div class="brand-text">
-      <div style="font-weight:700">Bhuvan Construction</div>
-      <div style="font-size:12px;color:var(--muted)">Construction & Solutions</div>
+      <div style="font-weight:700">Bhuvan </div>
+      <div style="font-size:12px;color:var(--white)">Construction & Solutions</div>
     </div>
   </div>
 
-  <nav aria-label="Main navigation">
+  <!-- Hamburger button -->
+  <button class="nav-toggle" aria-label="Toggle navigation">
+    ☰
+  </button>
+
+  <nav class="nav-links" aria-label="Main navigation">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
     <a href="services.html">Services</a>
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
+
 
 
 <main>
@@ -214,11 +367,11 @@ nav a:hover {
       <!-- Three.js canvas will be injected here -->
       <canvas id="three-canvas" style="display:block;width:100%;height:100%"></canvas>
         <video autoplay muted loop playsinline class="hero-video">
-    <source src="Tamil_Nadu_Miniature_Construction_Drone_Shot.mp4" type="video/mp4" />
+    <source src="videos/bg 7.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
   <div class="hero-content">
-  <img src="LOGO 1.png" alt="Bhuvan Construction Logo" class="hero-logo">
+  <img src="images/LOGO 1.png" alt="Bhuvan Construction Logo" class="hero-logo">
   <h1>Bhuvan Construction & Solutions</h1>
   <p>Building Trust. Delivering Quality.</p>
 </div>
@@ -227,6 +380,15 @@ nav a:hover {
       <div class="hero-ui" id="heroUi">
         <h1>We build durable spaces — with care & craft</h1>
         <p>Turnkey construction, smart design, renovation and civil contracting. Modern techniques, local trust.</p>
+        <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
+          <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Residential Construction Rate</div>
+          <div style="font-size:14px;color:#ffffff;">Starting from ₹2,099 per sq.ft</div>
+          
+        </div>
+          <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
+          <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Interior design</div>
+          <div style="font-size:14px;color:#ffffff;">Starting from ₹11,99 per sq.ft</div>
+        </div>
         <div class="cta-row">
           <button class="btn btn-primary" id="enquireBtn">Get A Quote</button>
           <button class="btn btn-ghost" id="viewWorks">View Projects</button>
@@ -248,9 +410,13 @@ nav a:hover {
           <div class="label">Years</div>
         </div>
       </div>
+      
+      <!-- Hero Right Logo - Desktop Only -->
+      <div class="hero-right-logo">
+        <img src="images/LOGO 1.png" alt="Bhuvan Construction & Solutions Logo" />
+      </div>
     </div>
   </section>
-
   <!-- About-style counters (scroll) -->
   <section>
     <div class="section-title">
@@ -273,42 +439,39 @@ nav a:hover {
       </div>
     </div>
 
-    <div class="reveal" style="margin-top:22px">
-      <div style="max-width:900px">
-        <p style="color:var(--muted)">
-          We combine practical engineering with modern design practices, delivering projects that stand the test of time.
-          Our team handles everything from foundation to finish — local permits, quality materials, and a clear communication line.
-        </p>
-      </div>
-    </div>
+   
+    
+   
   </section>
 
   <!-- Showcase -->
   <section>
     <div class="section-title">
       <h2>Showcase</h2>
+      <h3> We combine practical engineering with modern design practices, delivering projects that stand the test of time.
+          Our team handles everything from foundation to finish — local permits, quality materials, and a clear communication line.</h3>
       <p>Snapshot of our recent works — high fidelity photos and real sites</p>
     </div>
 
     <div class="showcase-grid">
       <div class="card reveal">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" alt="Site 1">
+        <img loading="lazy" src="images/home/residential.jpg" alt="Site 1">
         <div class="meta">
-          <strong>Residential Block — Phase I</strong>
+          <strong>Residential buildings</strong>
           <div style="color:var(--muted);font-size:13px;margin-top:6px">Full structural + interior fit-out</div>
         </div>
       </div>
       <div class="card reveal">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop" alt="Design">
+        <img loading="lazy" src="images/home/office.jfif" alt="Design">
         <div class="meta">
-          <strong>Office Complex — Smart Design</strong>
+          <strong>Office interior — Smart Design</strong>
           <div style="color:var(--muted);font-size:13px;margin-top:6px">Energy efficient materials & MEP</div>
         </div>
       </div>
       <div class="card reveal">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop" alt="Renovation">
+        <img loading="lazy" src="images/home/renov.jfif" alt="Renovation">
         <div class="meta">
-          <strong>Renovation — Heritage Home</strong>
+          <strong>Renovation</strong>
           <div style="color:var(--muted);font-size:13px;margin-top:6px">Preservation + modern amenities</div>
         </div>
       </div>
@@ -357,13 +520,13 @@ nav a:hover {
   </section>
 
   <footer>
-    © <span id="yr"></span> Bhuvan Construction and Solution • All rights reserved • <span style="color:var(--muted)">+91 63814 43149</span>
+    © <span id="yr"></span> <span style="color:var(--white)" > Bhuvan Construction and Solution • All rights reserved • <span style="color:var(--white)">+91 63814 43149</span>
   </footer>
 </main>
 
 <!-- Floating buttons -->
 <div class="floating" aria-hidden="false">
-  <a class="float-btn float-wa" href="https://wa.me/916381443149" target="_blank" title="WhatsApp">
+  <a class="float-btn float-wa" href="https://wa.me/916381443149?text=Hello%20Bhuvan%20Construction%20And%20Solution!" target="_blank" title="WhatsApp">
     <!-- whatsapp icon simple -->
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.373 0 .009 5.373 0 12 0 14.137.58 16.134 1.66 17.741L0 24l6.41-1.633A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12 0-3.204-1.252-6.238-3.48-8.52z" fill="#fff" opacity=".06"/>
@@ -396,6 +559,12 @@ const onScroll = () => {
 };
 window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
+
+  document.querySelector('.nav-toggle').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('show');
+  });
+
+
 
 /* Animated counters */
 function animateNumber(el, target, duration=1000, decimals=0){
@@ -645,6 +814,14 @@ const ioCards = new IntersectionObserver(entries=>{
   });
 },{threshold:0.25});
 document.querySelectorAll('.card.reveal').forEach(c=>ioCards.observe(c));
+
+const toggleBtn = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+toggleBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
+
 
 </script>
 </body>
