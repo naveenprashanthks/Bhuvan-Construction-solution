@@ -3,54 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services | Bhuvan Construction</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Our Services - Bhuvan Construction & Solutions</title>
+  <style>
+    :root {
+      --accent: #ffb400;
+      --dark: #111111;
+      --light: #ffffff;
+      --muted: #bbbbbb;
+    }
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0c0c0c;
+      color: var(--light);
+      overflow-x:hidden;
+    }
+
+    /* Header */
+    .site-header {
+      position: fixed; top:0; left:0; width:100%;
+      display:flex; justify-content:space-between; align-items:center;
+      padding: 15px 40px;
+      z-index:100;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+    }
+    .brand {display:flex;align-items:center;gap:12px;color:#fff;}
+    .brand-logo {height:42px;}
+    .brand-text div:first-child {font-weight:700;font-size:18px;}
+    .brand-text div:last-child {font-size:12px;color:var(--muted);}
+    nav a {
+      margin-left:25px; text-decoration:none; color:#fff; font-weight:500; position:relative;
+    }
+    nav a.active, nav a:hover {color:var(--accent);}
+    .nav-toggle {display:none;}
+
+    /* Hero */
+    .hero {
+      height:30vh; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; padding:0 20px;
+    }
+    .hero video {
+      position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+      z-index:-2;
+    }
+    .hero::after {
+      content:""; position:absolute; inset:0; background:rgba(0,0,0,0.65); z-index:-1;
+    }
+    .hero h1 {font-size:3.2rem; margin-bottom:15px;}
+    .hero p {font-size:1.2rem; color:#ddd;}
+
+    /* Services grid */
+    .services {
+      padding:80px 20px;
+      max-width:1200px; margin:auto;
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap:40px;
+    }
+    .service-card {
+      background:rgba(255,255,255,0.05);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 6px 20px rgba(0,0,0,0.4);
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+      opacity:0; transform:translateY(50px);
+    }
+    .service-card.visible {opacity:1; transform:translateY(0);}
+    .service-card:hover {transform:translateY(-10px); box-shadow:0 12px 30px rgba(0,0,0,0.6);}
+    .service-img img {width:100%; height:220px; object-fit:cover;}
+    .service-content {padding:25px;}
+    .service-content h2 {
+      font-size:1.5rem; margin-bottom:12px; color:var(--accent);
+    }
+    .service-content p {
+      font-size:0.95rem; color:#ddd; margin-bottom:20px; line-height:1.6;
+    }
+    .btn {
+      display:inline-block; background:var(--accent); color:#111;
+      padding:10px 25px; border-radius:50px; text-decoration:none; font-weight:600;
+      transition:all 0.3s ease;
+    }
+    .btn:hover {background:#ffc933; transform:scale(1.05);}
+
+    /* CTA */
+    .cta {
+      background:url('images/cta-bg.jpg') center/cover no-repeat;
+      padding:100px 20px; text-align:center; color:#fff; position:relative; margin-top:60px;
+    }
+    .cta::after {
+      content:""; position:absolute; inset:0; background:rgba(0,0,0,0.65);
+    }
+    .cta h2, .cta a {position:relative; z-index:1;}
+    .cta h2 {font-size:2.4rem; margin-bottom:25px;}
+    .cta a {background:var(--accent); color:#111;}
+
+    /* Mobile */
+    @media(max-width:768px){
+      .hero h1 {font-size:2rem;}
+      .hero p {font-size:1rem;}
+      .nav-toggle {display:block;background:none;border:none;font-size:28px;color:#fff;cursor:pointer;}
+      nav {
+        position:absolute;top:70px;right:20px;background:rgba(0,0,0,0.95);
+        padding:20px;border-radius:10px;display:none;flex-direction:column;gap:15px;
+      }
+      nav.show {display:flex;}
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>Bhuvan Construction</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
 
-<section class="main">
-  <h2>Our Services</h2>
-  <div class="services-container">
-    <div class="service">
-      <img src="https://images.unsplash.com/photo-1581092334651-ddf0e20d7d3d" alt="Construction">
-      <h3>Construction</h3>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/LOGO 1.png" alt="Logo" class="brand-logo">
+      <div class="brand-text">
+        <div>Bhuvan</div>
+        <div>Construction & Solutions</div>
+      </div>
     </div>
-    <div class="service">
-      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72" alt="Commercial">
-      <h3>Commercial</h3>
-    </div>
-    <div class="service">
-      <img src="https://images.unsplash.com/photo-1595526114035-0e469f9d57f2" alt="Renovation">
-      <h3>Renovation</h3>
-    </div>
-    <div class="service">
-      <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36" alt="Designing">
-      <h3>Designing</h3>
-    </div>
-    <div class="service">
-      <img src="https://images.unsplash.com/photo-1600607687483-6fcdf04e76b4" alt="Contracts">
-      <h3>Contracts</h3>
-    </div>
-    <div class="service">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Demolition">
-      <h3>Demolition</h3>
-    </div>
-  </div>
-</section>
+    <button class="nav-toggle">☰</button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-<div class="floating-buttons">
-  <a href="https://wa.me/916381443149" class="whatsapp">&#128172;</a>
-  <a href="tel:+916381443149" class="call">&#9742;</a>
-</div>
+  <!-- Hero -->
+  <section class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="videos/services-bg.mp4" type="video/mp4">
+    </video>
+    <div>
+      <h1>Our Services</h1>
+      <p>Innovation. Precision. Excellence.</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="service-card">
+      <div class="service-img"><img src="images/services/residential" alt="Residential"></div>
+      <div class="service-content">
+        <h2>Residential Construction</h2>
+        <p>We build homes with precision, durability, and timeless design.</p>
+        <a href="contact.html" class="btn">Get Started</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img"><img src="images/services/commercial.jpeg" alt="Commercial"></div>
+      <div class="service-content">
+        <h2>Commercial Projects</h2>
+        <p>Modern and functional workspaces tailored for business growth.</p>
+        <a href="contact.html" class="btn">Learn More</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img"><img src="images/services/renovation1.jpeg" alt="Renovation"></div>
+      <div class="service-content">
+        <h2>Renovation</h2>
+        <p>Transforming existing spaces into vibrant, modern environments.</p>
+        <a href="contact.html" class="btn">Explore</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img"><img src="images/services/designing.jpeg" alt="Designing"></div>
+      <div class="service-content">
+        <h2>Designing</h2>
+        <p>Architectural and interior designs blending creativity with purpose.</p>
+        <a href="contact.html" class="btn">Discover</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img"><img src="images/services/road contract.png" alt="Contracts"></div>
+      <div class="service-content">
+        <h2>Contracts</h2>
+        <p>Turnkey solutions for seamless and stress-free project execution.</p>
+        <a href="contact.html" class="btn">Get Quote</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img"><img src="images/services/demolition.jpeg" alt="Demolition"></div>
+      <div class="service-content">
+        <h2>Demolition</h2>
+        <p>Safe, efficient clearance making way for new beginnings.</p>
+        <a href="contact.html" class="btn">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Let’s Build Something Great Together</h2>
+    <a href="contact.html" class="btn">Contact Us</a>
+  </section>
+
+  <script>
+    // nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('nav');
+    toggle.addEventListener('click', ()=> nav.classList.toggle('show'));
+
+    // scroll reveal
+    const cards = document.querySelectorAll('.service-card');
+    const reveal = ()=> {
+      const trigger = window.innerHeight*0.85;
+      cards.forEach(c=>{
+        const top = c.getBoundingClientRect().top;
+        if(top<trigger) c.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+  </script>
 </body>
 </html>
