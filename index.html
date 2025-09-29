@@ -214,6 +214,131 @@
 
   
 
+  .mobile-logo {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    top: 50%;
+    padding: 20px;
+    max-width: 100%;
+    background: transparent; /* keep video visible */
+  }
+
+  /*
+    ==========================================
+    Mobile Hero Logo (Added)
+    ==========================================
+  */
+  .hero-logo-mobile {
+    /* Hide the logo on desktop by default */
+    display: none; 
+  }
+
+  /* On screens 768px or less (tablets and phones) */
+  @media (max-width: 768px) {
+    .hero-logo-mobile {
+      /* Make the logo visible */
+      display: block; 
+      
+      /* Center the logo and add space below it */
+      margin: 0 auto 25px auto; 
+
+      /* Set a responsive size for the logo */
+      max-width: 130px; 
+      height: auto;
+    }
+
+    .hero-ui {
+      /* Push the box down to make space */
+      top: 12vh;
+    }
+  }
+
+  /* Further adjust for smaller phone screens */
+  @media (max-width: 640px) {
+    .hero-ui {
+      /* Reposition the box on small screens */
+      top: 15vh;
+    }
+  }
+
+  /* small polish */
+  .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
+  .reveal.show{opacity:1;transform:none}
+
+  .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  background: transparent; /* keep video visible */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  height: 50px;
+  width: auto;
+}
+
+nav a {
+  margin-left: 20px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+/* Default desktop */
+.nav-toggle {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 11;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px; /* below header */
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
+
   /* Responsiveness */
   @media (min-width: 769px) {
     /* Desktop: Show hero right logo and hide header */
@@ -267,7 +392,7 @@
   }
   @media (max-width:640px){
     nav{display:none}
-    .hero-ui{top:240px;padding:14px}
+    .hero-ui{padding:14px}
     .hero-ui h1{font-size:22px}
     .hero-ui p{font-size:13px}
     .showcase-grid{grid-template-columns:1fr}
@@ -358,88 +483,13 @@
     }
   }
 
-  /* small polish */
-  .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
-  .reveal.show{opacity:1;transform:none}
-
-  .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 10;
-  background: transparent; /* keep video visible */
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-logo {
-  height: 50px;
-  width: auto;
-}
-
-nav a {
-  margin-left: 20px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-/* Default desktop */
-.nav-toggle {
-  display: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 11;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 70px; /* below header */
-    right: 20px;
-    background: rgba(0,0,0,0.8);
-    padding: 15px;
-    border-radius: 10px;
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-links.show {
-    display: flex;
-  }
-}
-
-
 
 </style>
 </head>
 <body>
+
+
+
 
 <header class="site-header">
   <div class="brand">
@@ -450,7 +500,6 @@ nav a:hover {
     </div>
   </div>
 
-  <!-- Hamburger button -->
   <button class="nav-toggle" aria-label="Toggle navigation">
     ☰
   </button>
@@ -466,24 +515,27 @@ nav a:hover {
 
 
 <main>
+
+
+  
     
-  <!-- HERO / 3D STAGE -->
   <section class="hero" id="hero">
     <div class="stage" id="stage">
-      <!-- Three.js canvas will be injected here -->
       <canvas id="three-canvas" style="display:block;width:100%;height:100%"></canvas>
         <video autoplay muted loop playsinline class="hero-video">
     <source src="videos/bg 7.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+  <div class="mobile-logo">
+    <img src="images/LOGO 1.png" alt="Bhuvan Construction & Solutions Logo" class="hero-logo" />
+  </div>
   <div class="hero-content">
-  <img src="images/LOGO 1.png" alt="Bhuvan Construction Logo" class="hero-logo">
   <h1>Bhuvan Construction & Solutions</h1>
   <p>Building Trust. Delivering Quality.</p>
 </div>
 
-      <!-- Overlay UI (left) -->
       <div class="hero-ui" id="heroUi">
+        <img src="images/LOGO 1.png" alt="Bhuvan Logo" class="hero-logo-mobile" />
         <h1>We build durable spaces — with care & craft</h1>
         <p>Turnkey construction, smart design, renovation and civil contracting. Modern techniques, local trust.</p>
         <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
@@ -493,7 +545,7 @@ nav a:hover {
         </div>
           <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
           <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Interior design</div>
-          <div style="font-size:14px;color:#ffffff;">Starting from ₹1,199 per sq.ft</div>
+          <div style="font-size:14px;color:#ffffff;">Starting from ₹11,99 per sq.ft</div>
         </div>
         <div class="cta-row">
           <button class="btn btn-primary" id="enquireBtn">Get A Quote</button>
@@ -501,14 +553,13 @@ nav a:hover {
         </div>
       </div>
 
-      <!-- Overlay stats (right) -->
       <div class="stats-bar" aria-hidden="true">
         <div class="stat">
-          <div class="num" data-target="10">0</div>
+          <div class="num" data-target="10+">0</div>
           <div class="label">Projects</div>
         </div>
         <div class="stat">
-          <div class="num" data-target="10">0</div>
+          <div class="num" data-target="10+">0</div>
           <div class="label">Clients</div>
         </div>
         <div class="stat">
@@ -517,13 +568,11 @@ nav a:hover {
         </div>
       </div>
       
-      <!-- Hero Right Logo - Desktop Only -->
       <div class="hero-right-logo">
         <img src="images/LOGO 1.png" alt="Bhuvan Construction & Solutions Logo" />
       </div>
     </div>
   </section>
-  <!-- About-style counters (scroll) -->
   <section>
     <div class="section-title">
       <h2>Why choose us</h2>
@@ -545,12 +594,11 @@ nav a:hover {
       </div>
     </div>
 
-   
     
-   
+    
+  
   </section>
 
-  <!-- Showcase -->
   <section>
     <div class="section-title">
       <h2>Showcase</h2>
@@ -594,7 +642,6 @@ nav a:hover {
     </div>
   </section>
 
-  <!-- Large step-by-step visual (mock) -->
   <section>
     <div class="section-title">
       <h2>How we work</h2>
@@ -630,24 +677,20 @@ nav a:hover {
   </footer>
 </main>
 
-<!-- Floating buttons -->
 <div class="floating" aria-hidden="false">
   <a class="float-btn float-wa" href="https://wa.me/916381443149?text=Hello%20Bhuvan%20Construction%20And%20Solution!" target="_blank" title="WhatsApp">
-    <!-- whatsapp icon simple -->
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.373 0 .009 5.373 0 12 0 14.137.58 16.134 1.66 17.741L0 24l6.41-1.633A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12 0-3.204-1.252-6.238-3.48-8.52z" fill="#fff" opacity=".06"/>
       <path d="M17.472 14.382c-.297-.15-1.758-.867-2.03-.967-.273-.1-.472-.148-.672.15-.198.297-.768.967-.942 1.166-.173.198-.347.223-.644.074-.297-.15-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.297-.018-.458.13-.606.134-.133.298-.347.447-.52.151-.173.2-.298.3-.497.1-.198.05-.372-.025-.522-.075-.15-.672-1.62-.922-2.223-.242-.584-.487-.502-.672-.512l-.574-.01c-.198 0-.52.074-.794.372s-1.04 1.016-1.04 2.479 1.064 2.876 1.212 3.074c.15.198 2.096 3.2 5.077 4.487.71.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347z" fill="#fff"/>
     </svg>
   </a>
   <a class="float-btn float-call" href="tel:+916381443149" title="Call">
-    <!-- phone icon -->
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <path d="M6.6 10.2c1.5 3.1 4.1 5.7 7.2 7.2l2.1-2.1c.3-.3.8-.4 1.1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .5 1 1V21c0 .6-.4 1-1 1C10.7 22 2 13.3 2 2c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.4.1.9-.2 1.1L6.6 10.2z" fill="#fff"/>
     </svg>
   </a>
 </div>
 
-<!-- THREE.JS from CDN -->
 <script src="https://unpkg.com/three@0.154.0/build/three.min.js"></script>
 <script src="https://unpkg.com/three@0.154.0/examples/js/controls/OrbitControls.js"></script>
 
@@ -932,4 +975,3 @@ toggleBtn.addEventListener("click", () => {
 </script>
 </body>
 </html>
-
