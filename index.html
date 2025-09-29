@@ -196,13 +196,10 @@
     height: auto;
   }
   
-  .desktop-logo {
+  .desktop-logo, .mobile-logo {
     display: none;
   }
   
-  .mobile-logo {
-    display: none;
-  }
 
   /*
     ==========================================
@@ -259,7 +256,30 @@
         flex-wrap: wrap;
     }
   }
+  
+  /* FIX 3: "How We Work" Section Styling (Frosted Glass) */
+  #how-we-work-section {
+    background-color: rgba(15, 23, 36, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 0 6vw 30px 6vw;
+  }
 
+  #how-we-work-section .card div {
+    color: var(--white);
+  }
+
+  #how-we-work-section .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.04));
+  }
+
+  @media (max-width: 768px) {
+    #how-we-work-section .reveal {
+        grid-template-columns: 1fr;
+    }
+  }
+  
   /* small polish */
   .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
   .reveal.show{opacity:1;transform:none}
@@ -273,7 +293,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* FIX 3: Navbar z-index */
+    /* FIX 4: Navbar z-index */
     z-index: 100; 
     background: transparent;
   }
@@ -301,7 +321,7 @@ nav a:hover {
 }
 
   /* Responsiveness */
-  @media (min-width: 769px) {
+  @media (min-width: 1001px) {
     .hero-right-logo {
       display: block;
     }
@@ -316,10 +336,10 @@ nav a:hover {
       top: 110px;
       left: 0;
       transform: none;
-      pointer-events: none; /* Allow clicks to go through to canvas */
+      pointer-events: none;
     }
     .hero-content-wrapper > * {
-        pointer-events: auto; /* Re-enable clicks on content */
+        pointer-events: auto;
     }
     .hero-ui, .stats-bar {
         position: static;
@@ -431,7 +451,7 @@ nav a:hover {
           </div>
           <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
             <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Interior design</div>
-            <div style="font-size:14px;color:#ffffff;">Starting from ₹1,199 per sq.ft</div>
+            <div style="font-size:14px;color:#ffffff;">Starting from ₹11,99 per sq.ft</div>
           </div>
           <div class="cta-row">
             <button class="btn btn-primary" id="enquireBtn">Get A Quote</button>
@@ -453,7 +473,9 @@ nav a:hover {
             <div class="label">Years</div>
           </div>
         </div>
-      </div> <div class="hero-right-logo">
+      </div>
+
+      <div class="hero-right-logo">
         <img src="images/LOGO 1.png" alt="Bhuvan Construction & Solutions Logo" />
       </div>
     </div>
@@ -520,7 +542,7 @@ nav a:hover {
     </div>
   </section>
 
-  <section>
+  <section id="how-we-work-section">
     <div class="section-title">
       <h2>How we work</h2>
       <p>Clear phases — transparent billing — regular updates</p>
@@ -594,7 +616,11 @@ function animateNumber(el, target, duration=1000, decimals=0){
   const tick = (t) => {
     const delta = Math.min(1, (t - startTime) / duration);
     const val = start + (target - start) * (0.5 - Math.cos(Math.PI * delta) / 2);
-    el.textContent = parseFloat(val).toFixed(decimals);
+    let text = parseFloat(val).toFixed(decimals);
+    if(el.dataset.target.includes('+')) {
+        text += '+';
+    }
+    el.textContent = text;
     if(delta < 1) requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
@@ -607,9 +633,6 @@ const numObserver = new IntersectionObserver(entries => {
             const target = parseFloat(el.dataset.target);
             const isInt = Number.isInteger(target) || el.dataset.target.includes('+');
             animateNumber(el, target, 1200, isInt ? 0 : 1);
-            if(el.dataset.target.includes('+')) {
-                el.textContent += '+';
-            }
             numObserver.unobserve(el);
         }
     });
@@ -723,45 +746,42 @@ function resizeRenderer() {
 }
 new ResizeObserver(resizeRenderer).observe(canvas.parentElement);
 
-let last = 0;
+let animId;
 function animate(t){
-  const now = t * 0.001;
-  const dt = now - last;
-  last = now;
+  animId = requestAnimationFrame(animate);
 
+  const now = t * 0.001;
+  
   pivot.rotation.z = Math.sin(now * 0.5) * 0.08;
   hookGroup.position.y = Math.sin(now*1.6) * 0.6;
 
   blocks.forEach((b, i)=>{
     b.position.y = 0.45 + Math.abs(Math.sin(now*0.8 + i*0.6)) * 0.35;
-    b.rotation.y += dt * 0.1 * (i+1);
+    b.rotation.y += 0.005 * (i+1);
   });
 
   controls.update();
   renderer.render(scene, camera);
-  requestAnimationFrame(animate);
 }
-
-let animId = requestAnimationFrame(animate);
 
 const stageObserver = new IntersectionObserver(entries=>{
   if (entries[0].isIntersecting) {
-    cancelAnimationFrame(animId);
-    animId = requestAnimationFrame(animate);
+    if(!animId) animate();
   } else {
     cancelAnimationFrame(animId);
+    animId = null;
   }
-}, {threshold: 0.1});
+}, {threshold: 0.01});
 stageObserver.observe(document.getElementById('stage'));
 
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) cancelAnimationFrame(animId);
-  else {
+  if (document.hidden) {
       cancelAnimationFrame(animId);
-      animId = requestAnimationFrame(animate);
+      animId = null;
+  } else {
+      if(!animId) animate();
   }
 });
 </script>
 </body>
 </html>
-
