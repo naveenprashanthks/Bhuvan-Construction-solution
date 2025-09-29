@@ -110,10 +110,20 @@
 }
   
 
-.hero-logo {
-  max-width: 180px;  /* adjust as needed */
-  margin-bottom: 1800px;
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* keeps everything centered */
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
 }
+
+.hero-logo {
+  max-width: 180px;
+  margin-bottom: 20px; /* just small spacing */
+}
+
 
   /* overlay UI on hero */
   .hero-ui{
@@ -826,6 +836,7 @@ toggleBtn.addEventListener("click", () => {
 </script>
 </body>
 </html>
+
 
 
 
