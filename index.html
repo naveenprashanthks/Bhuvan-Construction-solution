@@ -80,9 +80,6 @@
   nav a:hover{color:var(--accent)}
 
   /* Hero - 3D canvas area */
-  
-  
-
   .hero-video {
   position: fixed;
   top: 0;
@@ -98,7 +95,7 @@
   }
 .hero-content {
   position: relative;
-  z-index: 1000; /* above video */
+  z-index: 10;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -113,17 +110,17 @@
 
 .hero-logo {
   max-width: 180px;
-  margin-bottom: 1800px;
+  margin-bottom: 20px;
   width: auto;
   height: auto;
   display: block;
-  opacity: 10;
-  visibility: visible;
 }
 
   /* overlay UI on hero */
   .hero-ui{
-    position:absolute;left:28px;top:110px;z-index:30;max-width:520px;
+    position:relative;
+    z-index:30;
+    max-width:520px;
     background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.75));
     border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
@@ -137,7 +134,7 @@
   .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef8}
 
   /* Stats bar */
-  .stats-bar{display:flex;gap:16px;position:absolute;right:28px;top:110px;z-index:30}
+  .stats-bar{display:flex;gap:16px;position:relative;z-index:30}
   .stat{background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);padding:12px 18px;border-radius:12px;min-width:120px;text-align:center;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
   .stat .num{font-weight:800;font-size:20px;color:#ffffff;text-shadow:1px 1px 3px rgba(0,0,0,0.8)}
   .stat .label{font-size:12px;color:#ffffff;text-shadow:1px 1px 2px rgba(0,0,0,0.8)}
@@ -186,79 +183,80 @@
   footer{padding:24px;text-align:center;color:var(--muted);font-size:13px}
 
   /* Logo styles */
-  /* Hero right logo - desktop only */
   .hero-right-logo {
     position: absolute;
     right: 120px;
     bottom: 80px;
     z-index: 25;
-    display: none; /* Hidden by default */
+    display: none; 
   }
   
   .hero-right-logo img {
     max-width: 200px;
     height: auto;
-    opacity: 10;
   }
   
-  /* Desktop logo below counters */
   .desktop-logo {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-    padding: 0 20px;
+    display: none;
   }
   
-  
-  
-
-  
-
   .mobile-logo {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    top: 50%;
-    padding: 20px;
-    max-width: 100%;
-    background: transparent; /* keep video visible */
+    display: none;
   }
 
   /*
     ==========================================
-    Mobile Hero Logo (Added)
+    ALL FIXES BUNDLED HERE
     ==========================================
   */
+
+  /* FIX 1: Mobile Hero Logo */
   .hero-logo-mobile {
-    /* Hide the logo on desktop by default */
     display: none; 
   }
 
-  /* On screens 768px or less (tablets and phones) */
   @media (max-width: 768px) {
     .hero-logo-mobile {
-      /* Make the logo visible */
       display: block; 
-      
-      /* Center the logo and add space below it */
       margin: 0 auto 25px auto; 
-
-      /* Set a responsive size for the logo */
       max-width: 130px; 
       height: auto;
     }
-
-    .hero-ui {
-      /* Push the box down to make space */
-      top: 12vh;
-    }
   }
 
-  /* Further adjust for smaller phone screens */
-  @media (max-width: 640px) {
+  /* FIX 2: Wrapper for Stats Bar visibility */
+  .hero-content-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 20px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  @media (max-width: 1000px) {
+    .hero-ui, .stats-bar {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      transform: none;
+      margin-top: 0;
+    }
+
     .hero-ui {
-      /* Reposition the box on small screens */
-      top: 15vh;
+      width: 100%;
+      max-width: 520px;
+    }
+    
+    .stats-bar {
+        justify-content: center;
+        flex-wrap: wrap;
     }
   }
 
@@ -267,17 +265,18 @@
   .reveal.show{opacity:1;transform:none}
 
   .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1000;
-  background: transparent; /* keep video visible */
-}
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* FIX 3: Navbar z-index */
+    z-index: 100; 
+    background: transparent;
+  }
 
 .brand {
   display: flex;
@@ -300,88 +299,47 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
-/* Default desktop */
-.nav-toggle {
-  display: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 11;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 70px; /* below header */
-    right: 20px;
-    background: rgba(0,0,0,0.8);
-    padding: 15px;
-    border-radius: 10px;
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-links.show {
-    display: flex;
-  }
-}
 
   /* Responsiveness */
   @media (min-width: 769px) {
-    /* Desktop: Show hero right logo and hide header */
     .hero-right-logo {
       display: block;
     }
     .site-header {
       display: none;
     }
+    .hero-content-wrapper{
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 0 28px;
+      top: 110px;
+      left: 0;
+      transform: none;
+      pointer-events: none; /* Allow clicks to go through to canvas */
+    }
+    .hero-content-wrapper > * {
+        pointer-events: auto; /* Re-enable clicks on content */
+    }
+    .hero-ui, .stats-bar {
+        position: static;
+    }
   }
   
   @media (max-width:1000px){
     .showcase-grid{grid-template-columns:repeat(2,1fr)}
-    .hero-ui{left:18px;right:18px;top:80px;max-width:unset}
-    .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap}
   }
+
   @media (max-width:768px){
-    /* Mobile: Hide hero right logo and desktop logo, show header, keep only hero center logo */
     .hero-right-logo {
-      display: none !important;
-    }
-    .desktop-logo {
       display: none !important;
     }
     .site-header {
       display: flex;
     }
-    .section-title{top:10pfx;flex-direction:column;align-items:flex-start}
-    .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap;gap:10px;display:flex !important}
+    .section-title{flex-direction:column;align-items:flex-start}
     .counters{justify-content:center}
     
-    /* Mobile hero logo adjustments - FORCE VISIBLE */
-    .hero-logo {
-      max-width: 140px !important;
-      margin-bottom: 20px !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-    .hero-content {
-      padding: 30px 20px;
-      display: flex !important;
-    }
     .hero-content h1 {
       font-size: 2rem;
       margin-bottom: 12px;
@@ -390,6 +348,7 @@ nav a:hover {
       font-size: 1.1rem;
     }
   }
+
   @media (max-width:640px){
     nav{display:none}
     .hero-ui{padding:14px}
@@ -398,17 +357,8 @@ nav a:hover {
     .showcase-grid{grid-template-columns:1fr}
     .card img{height:180px}
     .stat{min-width:unset;padding:8px 12px}
-    .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap;gap:10px;display:flex !important}
     .counters{justify-content:center}
-    
-    /* Mobile hero logo adjustments - FORCE VISIBLE */
-    .hero-logo {
-      max-width: 120px !important;
-      margin-bottom: 15px !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
+
     .hero-content h1 {
       font-size: 1.8rem;
       margin-bottom: 10px;
@@ -418,19 +368,7 @@ nav a:hover {
     }
   }
   
-  /* Additional mobile breakpoints for better logo positioning */
   @media (max-width: 480px) {
-    .hero-logo {
-      max-width: 100px !important;
-      margin-bottom: 12px !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-    .hero-content {
-      min-height: 100vh;
-      padding: 80px 15px 40px;
-    }
     .hero-content h1 {
       font-size: 1.6rem;
       margin-bottom: 8px;
@@ -440,18 +378,7 @@ nav a:hover {
     }
   }
   
-  /* Extra small screens */
   @media (max-width: 360px) {
-    .hero-logo {
-      max-width: 90px !important;
-      margin-bottom: 10px !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-    .hero-content {
-      padding: 70px 10px 30px;
-    }
     .hero-content h1 {
       font-size: 1.4rem;
       margin-bottom: 6px;
@@ -460,36 +387,10 @@ nav a:hover {
       font-size: 0.85rem;
     }
   }
-  
-  /* Landscape mobile orientation */
-  @media (max-height: 500px) and (orientation: landscape) {
-    .hero-content {
-      padding: 20px;
-      min-height: auto;
-    }
-    .hero-logo {
-      max-width: 80px !important;
-      margin-bottom: 8px !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-    .hero-content h1 {
-      font-size: 1.3rem;
-      margin-bottom: 4px;
-    }
-    .hero-content p {
-      font-size: 0.8rem;
-    }
-  }
-
 
 </style>
 </head>
 <body>
-
-
-
 
 <header class="site-header">
   <div class="brand">
@@ -500,9 +401,7 @@ nav a:hover {
     </div>
   </div>
 
-  <button class="nav-toggle" aria-label="Toggle navigation">
-    ☰
-  </button>
+  <button class="nav-toggle" aria-label="Toggle navigation"> ☰ </button>
 
   <nav class="nav-links" aria-label="Main navigation">
     <a href="index.html">Home</a>
@@ -512,73 +411,59 @@ nav a:hover {
   </nav>
 </header>
 
-
-
 <main>
-
-
-  
-    
   <section class="hero" id="hero">
     <div class="stage" id="stage">
       <canvas id="three-canvas" style="display:block;width:100%;height:100%"></canvas>
-        <video autoplay muted loop playsinline class="hero-video">
-    <source src="videos/bg 7.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  <div class="mobile-logo">
-    <img src="images/LOGO 1.png" alt="Bhuvan Construction & Solutions Logo" class="hero-logo" />
-  </div>
-  <div class="hero-content">
-  <h1>Bhuvan Construction & Solutions</h1>
-  <p>Building Trust. Delivering Quality.</p>
-</div>
-
-      <div class="hero-ui" id="heroUi">
-        <img src="images/LOGO 1.png" alt="Bhuvan Logo" class="hero-logo-mobile" />
-        <h1>We build durable spaces — with care & craft</h1>
-        <p>Turnkey construction, smart design, renovation and civil contracting. Modern techniques, local trust.</p>
-        <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
-          <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Residential Construction Rate</div>
-          <div style="font-size:14px;color:#ffffff;">Starting from ₹2,099 per sq.ft</div>
-          
-        </div>
-          <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
-          <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Interior design</div>
-          <div style="font-size:14px;color:#ffffff;">Starting from ₹1,199 per sq.ft</div>
-        </div>
-        <div class="cta-row">
-          <button class="btn btn-primary" id="enquireBtn">Get A Quote</button>
-          <button class="btn btn-ghost" id="viewWorks">View Projects</button>
-        </div>
-      </div>
-
-      <div class="stats-bar" aria-hidden="true">
-        <div class="stat">
-          <div class="num" data-target="10+">0</div>
-          <div class="label">Projects</div>
-        </div>
-        <div class="stat">
-          <div class="num" data-target="10+">0</div>
-          <div class="label">Clients</div>
-        </div>
-        <div class="stat">
-          <div class="num" data-target="3">0</div>
-          <div class="label">Years</div>
-        </div>
-      </div>
+      <video autoplay muted loop playsinline class="hero-video">
+        <source src="videos/bg 7.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       
-      <div class="hero-right-logo">
+      <div class="hero-content-wrapper">
+        <div class="hero-ui" id="heroUi">
+          <img src="images/LOGO 1.png" alt="Bhuvan Logo" class="hero-logo-mobile" />
+          <h1>We build durable spaces — with care & craft</h1>
+          <p>Turnkey construction, smart design, renovation and civil contracting. Modern techniques, local trust.</p>
+          <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
+            <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Residential Construction Rate</div>
+            <div style="font-size:14px;color:#ffffff;">Starting from ₹2,099 per sq.ft</div>
+          </div>
+          <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
+            <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Interior design</div>
+            <div style="font-size:14px;color:#ffffff;">Starting from ₹11,99 per sq.ft</div>
+          </div>
+          <div class="cta-row">
+            <button class="btn btn-primary" id="enquireBtn">Get A Quote</button>
+            <button class="btn btn-ghost" id="viewWorks">View Projects</button>
+          </div>
+        </div>
+
+        <div class="stats-bar" aria-hidden="true">
+          <div class="stat">
+            <div class="num" data-target="10+">0</div>
+            <div class="label">Projects</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-target="10+">0</div>
+            <div class="label">Clients</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-target="2">0</div>
+            <div class="label">Years</div>
+          </div>
+        </div>
+      </div> <div class="hero-right-logo">
         <img src="images/LOGO 1.png" alt="Bhuvan Construction & Solutions Logo" />
       </div>
     </div>
   </section>
+
   <section>
     <div class="section-title">
       <h2>Why choose us</h2>
       <p>Precision, safety, timely delivery — backed by measurable results</p>
     </div>
-
     <div class="counters reveal">
       <div class="counter">
         <div class="big" data-target="98">0</div>
@@ -593,20 +478,14 @@ nav a:hover {
         <div class="lbl">Avg. Rating (out of 5)</div>
       </div>
     </div>
-
-    
-    
-  
   </section>
 
   <section>
     <div class="section-title">
       <h2>Showcase</h2>
-      <h3> We combine practical engineering with modern design practices, delivering projects that stand the test of time.
-          Our team handles everything from foundation to finish — local permits, quality materials, and a clear communication line.</h3>
+      <h3> We combine practical engineering with modern design practices, delivering projects that stand the test of time. Our team handles everything from foundation to finish — local permits, quality materials, and a clear communication line.</h3>
       <p>Snapshot of our recent works — high fidelity photos and real sites</p>
     </div>
-
     <div class="showcase-grid">
       <div class="card reveal">
         <img loading="lazy" src="images/home/residential.jpg" alt="Site 1">
@@ -630,7 +509,6 @@ nav a:hover {
         </div>
       </div>
     </div>
-
     <div class="cta-strip reveal" style="margin-top:26px">
       <div>
         <div class="big-cta">Ready to start your project?</div>
@@ -647,7 +525,6 @@ nav a:hover {
       <h2>How we work</h2>
       <p>Clear phases — transparent billing — regular updates</p>
     </div>
-
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px" class="reveal">
       <div class="card" style="padding:18px;text-align:center;">
         <div style="font-weight:800;font-size:18px">01</div>
@@ -693,13 +570,11 @@ nav a:hover {
 
 <script src="https://unpkg.com/three@0.154.0/build/three.min.js"></script>
 <script src="https://unpkg.com/three@0.154.0/examples/js/controls/OrbitControls.js"></script>
-
 <script>
-/* ---------- small helpers ---------- */
+/* ---------- HELPERS AND ANIMATIONS ---------- */
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-/* Smooth reveal on scroll */
-const revealEls = document.querySelectorAll('.reveal, .stat, .card, .counters, .hero-ui, .stats-bar');
+const revealEls = document.querySelectorAll('.reveal');
 const onScroll = () => {
   revealEls.forEach(el=>{
     const r = el.getBoundingClientRect();
@@ -709,62 +584,56 @@ const onScroll = () => {
 window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
 
-  document.querySelector('.nav-toggle').addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('show');
-  });
+document.querySelector('.nav-toggle').addEventListener('click', () => {
+  document.querySelector('.nav-links').classList.toggle('show');
+});
 
-
-
-/* Animated counters */
 function animateNumber(el, target, duration=1000, decimals=0){
   let start = 0;
   const startTime = performance.now();
   const tick = (t) => {
     const delta = Math.min(1, (t - startTime) / duration);
-    const val = start + (target - start) * (0.5 - Math.cos(Math.PI * delta) / 2); // smooth
+    const val = start + (target - start) * (0.5 - Math.cos(Math.PI * delta) / 2);
     el.textContent = parseFloat(val).toFixed(decimals);
     if(delta < 1) requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
 }
-const nums = document.querySelectorAll('.num');
-nums.forEach(n=>{
-  const target = parseFloat(n.dataset.target);
-  const io = new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){ animateNumber(n, target, 1200, Number.isInteger(target) ? 0 : 1); io.disconnect();}
-  }, {threshold:0.5});
-  io.observe(n);
-});
-const bigs = document.querySelectorAll('.counter .big');
-bigs.forEach(b=>{
-  const t = parseFloat(b.dataset.target);
-  const io = new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){ animateNumber(b, t, 1200, (t % 1 === 0) ? 0 : 1); io.disconnect();}
-  }, {threshold:0.5});
-  io.observe(b);
-});
 
-/* CTA buttons scroll to sections */
+const numObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseFloat(el.dataset.target);
+            const isInt = Number.isInteger(target) || el.dataset.target.includes('+');
+            animateNumber(el, target, 1200, isInt ? 0 : 1);
+            if(el.dataset.target.includes('+')) {
+                el.textContent += '+';
+            }
+            numObserver.unobserve(el);
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.num, .counter .big').forEach(n => numObserver.observe(n));
+
+
 document.getElementById('viewWorks').addEventListener('click', ()=>{ window.scrollTo({top: window.innerHeight, behavior:'smooth'});});
 document.getElementById('enquireBtn').addEventListener('click', ()=>{ window.location.href = 'contact.html';});
 document.getElementById('startNow').addEventListener('click', ()=>{ window.location.href = 'contact.html';});
 
-/* ---------- THREE.JS SCENE (interactive crane) ---------- */
+/* ---------- THREE.JS SCENE ---------- */
 const canvas = document.getElementById('three-canvas');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-renderer.setClearColor(0x000000, 0); // transparent
-// Mobile optimization: lower DPR
+renderer.setClearColor(0x000000, 0); 
 const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
 renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
 
 const scene = new THREE.Scene();
-
-// camera
 const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 2000);
 camera.position.set(0, 6, 12);
 
-// lights
 const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 0.7);
 scene.add(hemi);
 const dir = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -772,30 +641,23 @@ dir.position.set(5, 10, 7);
 dir.castShadow = true;
 scene.add(dir);
 
-// ground plane (grid)
 const grid = new THREE.GridHelper(60, 60, 0x202840, 0x151828);
 grid.material.opacity = 0.12;
 grid.material.transparent = true;
 scene.add(grid);
 
-// simple ambient fog
 scene.fog = new THREE.FogExp2(0x071021, 0.02);
 
-// BUILD a simple low-poly crane using boxes
 const matSteel = new THREE.MeshStandardMaterial({color:0xe6eef8, metalness:0.2, roughness:0.6});
 const matAccent = new THREE.MeshStandardMaterial({color:0xffb84d, metalness:0.6, roughness:0.3});
 
-// base
-const baseGeo = new THREE.BoxGeometry(4,0.6,2.4);
-const base = new THREE.Mesh(baseGeo, matSteel);
+const base = new THREE.Mesh(new THREE.BoxGeometry(4,0.6,2.4), matSteel);
 base.position.set(0,0.3,0);
 scene.add(base);
 
-// tower
 const towerGroup = new THREE.Group();
 const towerSeg = (h, y)=> {
-  const g = new THREE.BoxGeometry(0.5, h, 0.5);
-  const m = new THREE.Mesh(g, matSteel);
+  const m = new THREE.Mesh(new THREE.BoxGeometry(0.5, h, 0.5), matSteel);
   m.position.y = y;
   return m;
 };
@@ -807,24 +669,18 @@ for(let i=0;i<6;i++){
 towerGroup.position.set(-1,0,0);
 scene.add(towerGroup);
 
-// jib (arm)
-const jib = new THREE.Group();
-// pivot
 const pivot = new THREE.Object3D();
 pivot.position.set(-0.6,5.5,0);
 scene.add(pivot);
 
-// mast arm
 const arm = new THREE.Mesh(new THREE.BoxGeometry(7,0.28,0.28), matAccent);
 arm.position.set(3.0,0,0);
 pivot.add(arm);
 
-// counterweight
 const counter = new THREE.Mesh(new THREE.BoxGeometry(1.0,0.6,0.8), matSteel);
 counter.position.set(-0.5,0,0);
 pivot.add(counter);
 
-// hook and rope group
 const hookGroup = new THREE.Group();
 hookGroup.position.set(7, 0, 0);
 pivot.add(hookGroup);
@@ -836,25 +692,14 @@ const hook = new THREE.Mesh(new THREE.BoxGeometry(0.3,0.15,0.6), matAccent);
 hook.position.set(0,-1.6,0);
 hookGroup.add(hook);
 
-// small moving blocks to lift
-const blockGeo = new THREE.BoxGeometry(0.9,0.9,0.9);
 const blocks = [];
 for(let i=0;i<4;i++){
-  const b = new THREE.Mesh(blockGeo, new THREE.MeshStandardMaterial({color:0xcdd9e6}));
+  const b = new THREE.Mesh(new THREE.BoxGeometry(0.9,0.9,0.9), new THREE.MeshStandardMaterial({color:0xcdd9e6}));
   b.position.set(2.2 + i*0.8, 0.45, (i%2?0.9:-0.9));
   scene.add(b);
   blocks.push(b);
 }
 
-// subtle floating panels (decor)
-for(let i=0;i<6;i++){
-  const p = new THREE.Mesh(new THREE.BoxGeometry(1.2,0.02,0.8), new THREE.MeshStandardMaterial({color:0x102134,transparent:true,opacity:0.6}));
-  p.position.set(-3 + i*1.2, 2 + (i%2)*0.4, -2 + (i%3)*0.9);
-  p.rotation.y = i*0.25;
-  scene.add(p);
-}
-
-// orbit controls (limited)
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.maxPolarAngle = Math.PI * 0.45;
@@ -863,36 +708,30 @@ controls.maxDistance = 28;
 controls.enablePan = false;
 controls.rotateSpeed = 0.6;
 
-// reduce interactions on small screens
 if(isMobile){
   controls.enableZoom = false;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.6;
 }
 
-// resize handling
 function resizeRenderer() {
-  const width = canvas.clientWidth || canvas.parentElement.clientWidth;
-  const height = canvas.clientHeight || canvas.parentElement.clientHeight;
-  renderer.setSize(width, height, false);
-  camera.aspect = width / height;
+  const w = canvas.parentElement.clientWidth;
+  const h = canvas.parentElement.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
   camera.updateProjectionMatrix();
 }
-new ResizeObserver(resizeRenderer).observe(canvas);
+new ResizeObserver(resizeRenderer).observe(canvas.parentElement);
 
-// animation loop
 let last = 0;
 function animate(t){
   const now = t * 0.001;
   const dt = now - last;
   last = now;
 
-  // slow sway of crane
   pivot.rotation.z = Math.sin(now * 0.5) * 0.08;
-  // move hook up & down
   hookGroup.position.y = Math.sin(now*1.6) * 0.6;
 
-  // blocks subtle bob
   blocks.forEach((b, i)=>{
     b.position.y = 0.45 + Math.abs(Math.sin(now*0.8 + i*0.6)) * 0.35;
     b.rotation.y += dt * 0.1 * (i+1);
@@ -902,78 +741,26 @@ function animate(t){
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
-requestAnimationFrame(animate);
 
-/* Performance safeguards: stop rendering when out of view (tab hidden or scrolled past hero) */
-let visible = true;
-const obs = new IntersectionObserver(entries=>{
-  visible = entries[0].isIntersecting;
-  if(visible) requestAnimationFrame(animate);
+let animId = requestAnimationFrame(animate);
+
+const stageObserver = new IntersectionObserver(entries=>{
+  if (entries[0].isIntersecting) {
+    cancelAnimationFrame(animId);
+    animId = requestAnimationFrame(animate);
+  } else {
+    cancelAnimationFrame(animId);
+  }
 }, {threshold: 0.1});
-obs.observe(document.getElementById('stage'));
+stageObserver.observe(document.getElementById('stage'));
 
-// pause renderer when page hidden
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) renderer.setAnimationLoop(null);
-  else requestAnimationFrame(animate);
+  if (document.hidden) cancelAnimationFrame(animId);
+  else {
+      cancelAnimationFrame(animId);
+      animId = requestAnimationFrame(animate);
+  }
 });
-
-/* Touch hint on mobile */
-if(isMobile){
-  const hint = document.createElement('div');
-  hint.style.position='absolute';
-  hint.style.left='50%';
-  hint.style.bottom='18px';
-  hint.style.transform='translateX(-50%)';
-  hint.style.background='rgba(0,0,0,0.4)';
-  hint.style.padding='8px 12px';
-  hint.style.borderRadius='12px';
-  hint.style.fontSize='13px';
-  hint.style.color='#fff';
-  hint.style.zIndex='50';
-  hint.textContent = 'Tap & drag to rotate • Auto-rotate enabled';
-  document.getElementById('stage').appendChild(hint);
-  setTimeout(()=>hint.remove(), 4500);
-}
-
-/* Accessibility: keyboard control to focus canvas */
-canvas.setAttribute('tabindex','0');
-canvas.addEventListener('focus', ()=>{ controls.enabled = true })
-canvas.addEventListener('blur', ()=>{ controls.enabled = false })
-
-/* graceful fallback: if WebGL not supported, show static hero image */
-function webglAvailable() {
-  try {
-    const canvas = document.createElement('canvas');
-    return !!window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
-  } catch(e){ return false; }
-}
-if(!webglAvailable()){
-  document.getElementById('three-canvas').style.display = 'none';
-  const stage = document.getElementById('stage');
-  stage.style.backgroundImage = "url('https://images.unsplash.com/photo-1581092334651-ddf0e20d7d3d?q=80&w=1600&auto=format&fit=crop')";
-  stage.style.backgroundSize = 'cover';
-  stage.style.backgroundPosition = 'center';
-}
-
-/* Lazy reveal animations for cards */
-const ioCards = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting) entry.target.classList.add('show');
-  });
-},{threshold:0.25});
-document.querySelectorAll('.card.reveal').forEach(c=>ioCards.observe(c));
-
-const toggleBtn = document.querySelector(".nav-toggle");
-const navLinks = document.querySelector(".nav-links");
-
-toggleBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-});
-
-
 </script>
 </body>
 </html>
-
-
