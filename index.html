@@ -102,22 +102,24 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;      /* horizontally center */
-  justify-content: center;  /* vertically center */
+  align-items: center;
+  justify-content: center;
   text-align: center;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+  padding: 20px;
 }
+  
 
 .hero-logo {
-  max-width: 180px; /* max size */
-  width: 100%;      /* responsive width */
+  max-width: 180px;
+  margin-bottom: 1800px;
+  width: auto;
   height: auto;
-  margin-bottom: 20px; /* small spacing from hero text */
+  display: block;
+  opacity: 10;
+  visibility: visible;
 }
-
-
-
 
   /* overlay UI on hero */
   .hero-ui{
@@ -231,10 +233,10 @@
   @media (max-width:768px){
     /* Mobile: Hide hero right logo and desktop logo, show header, keep only hero center logo */
     .hero-right-logo {
-      display: none;
+      display: none !important;
     }
     .desktop-logo {
-      display: none;
+      display: none !important;
     }
     .site-header {
       display: flex;
@@ -242,6 +244,26 @@
     .section-title{top:10pfx;flex-direction:column;align-items:flex-start}
     .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap;gap:10px;display:flex !important}
     .counters{justify-content:center}
+    
+    /* Mobile hero logo adjustments - FORCE VISIBLE */
+    .hero-logo {
+      max-width: 140px !important;
+      margin-bottom: 20px !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .hero-content {
+      padding: 30px 20px;
+      display: flex !important;
+    }
+    .hero-content h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+    }
   }
   @media (max-width:640px){
     nav{display:none}
@@ -253,8 +275,88 @@
     .stat{min-width:unset;padding:8px 12px}
     .stats-bar{position:relative;right:auto;top:auto;margin-top:20px;justify-content:center;flex-wrap:wrap;gap:10px;display:flex !important}
     .counters{justify-content:center}
+    
+    /* Mobile hero logo adjustments - FORCE VISIBLE */
+    .hero-logo {
+      max-width: 120px !important;
+      margin-bottom: 15px !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .hero-content h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .hero-content p {
+      font-size: 1rem;
+    }
   }
   
+  /* Additional mobile breakpoints for better logo positioning */
+  @media (max-width: 480px) {
+    .hero-logo {
+      max-width: 100px !important;
+      margin-bottom: 12px !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .hero-content {
+      min-height: 100vh;
+      padding: 80px 15px 40px;
+    }
+    .hero-content h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+    .hero-content p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Extra small screens */
+  @media (max-width: 360px) {
+    .hero-logo {
+      max-width: 90px !important;
+      margin-bottom: 10px !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .hero-content {
+      padding: 70px 10px 30px;
+    }
+    .hero-content h1 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+    .hero-content p {
+      font-size: 0.85rem;
+    }
+  }
+  
+  /* Landscape mobile orientation */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .hero-content {
+      padding: 20px;
+      min-height: auto;
+    }
+    .hero-logo {
+      max-width: 80px !important;
+      margin-bottom: 8px !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .hero-content h1 {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+    .hero-content p {
+      font-size: 0.8rem;
+    }
+  }
 
   /* small polish */
   .reveal{opacity:0;transform:translateY(18px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
@@ -371,7 +473,7 @@ nav a:hover {
       <!-- Three.js canvas will be injected here -->
       <canvas id="three-canvas" style="display:block;width:100%;height:100%"></canvas>
         <video autoplay muted loop playsinline class="hero-video">
-    <source src="videos/bg.mp4" type="video/mp4" />
+    <source src="videos/bg 7.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
   <div class="hero-content">
@@ -391,7 +493,7 @@ nav a:hover {
         </div>
           <div style="background:rgba(248,180,0,0.15);border:1px solid rgba(248,180,0,0.3);border-radius:8px;padding:12px;margin:12px 0;">
           <div style="font-size:16px;font-weight:600;color:#ffb400;margin-bottom:4px;">Interior design</div>
-          <div style="font-size:14px;color:#ffffff;">Starting from ₹1,199 per sq.ft</div>
+          <div style="font-size:14px;color:#ffffff;">Starting from ₹11,99 per sq.ft</div>
         </div>
         <div class="cta-row">
           <button class="btn btn-primary" id="enquireBtn">Get A Quote</button>
@@ -830,11 +932,3 @@ toggleBtn.addEventListener("click", () => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
