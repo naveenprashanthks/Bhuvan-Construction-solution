@@ -102,18 +102,20 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: center;      /* horizontally center */
+  justify-content: center;  /* vertically center */
   text-align: center;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
 }
-  
 
 .hero-logo { 
-  max-width: 180px; /* adjust as needed */ 
-  margin-bottom: 1800px; 
+  max-width: 180px; /* logo size */
+  width: 50%;       /* responsive width */
+  height: auto;     /* keep aspect ratio */
+  margin-bottom: 20px; /* spacing from other content */
 }
+
 
 
 
@@ -828,6 +830,7 @@ toggleBtn.addEventListener("click", () => {
 </script>
 </body>
 </html>
+
 
 
 
