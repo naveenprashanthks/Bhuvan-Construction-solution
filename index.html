@@ -723,19 +723,19 @@ for(let i=0;i<4;i++){
   blocks.push(b);
 }
 
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.maxPolarAngle = Math.PI * 0.45;
-controls.minDistance = 6;
-controls.maxDistance = 28;
-controls.enablePan = false;
-controls.rotateSpeed = 0.6;
+// const controls = new THREE.OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+// controls.maxPolarAngle = Math.PI * 0.45;
+// controls.minDistance = 6;
+// controls.maxDistance = 28;
+// controls.enablePan = false;
+// controls.rotateSpeed = 0.6;
 
-if(isMobile){
-  controls.enableZoom = false;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 0.6;
-}
+// if(isMobile){
+//   controls.enableZoom = false;
+//   controls.autoRotate = true;
+//   controls.autoRotateSpeed = 0.6;
+// }
 
 function resizeRenderer() {
   const w = canvas.parentElement.clientWidth;
@@ -760,7 +760,7 @@ function animate(t){
     b.rotation.y += 0.005 * (i+1);
   });
 
-  controls.update();
+  // controls.update();
   renderer.render(scene, camera);
 }
 
@@ -782,6 +782,208 @@ document.addEventListener('visibilitychange', () => {
       if(!animId) animate();
   }
 });
+
+
+/* ===============================
+   BHUVAN CONSTRUCTIONS CHATBOT
+   Gemini API – Customer Care Only
+   =============================== */
+
+(function () {
+  try {
+    /* ---------- STYLES ---------- */
+    const style = document.createElement("style");
+    style.innerHTML = `
+      #bc-bubble {
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg,#f8b400,#ff7a00);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        cursor: pointer;
+        z-index: 2147483647;
+        box-shadow: 0 10px 25px rgba(0,0,0,.4);
+      }
+
+      #bc-window {
+        position: fixed;
+        left: 16px;
+        bottom: 86px;
+        width: 320px;
+        max-height: 420px;
+        background: #0f1724;
+        color: #fff;
+        border-radius: 14px;
+        display: none;
+        flex-direction: column;
+        z-index: 2147483647;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,.5);
+      }
+
+      #bc-header {
+        padding: 12px;
+        font-weight: 700;
+        background: #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #bc-body {
+        padding: 12px;
+        font-size: 13px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .bc-user { color:#ffbf00;font-weight:600;margin-bottom:8px; }
+      .bc-bot { color:#fff;margin-bottom:8px; }
+
+      #bc-input {
+        display: flex;
+        border-top: 1px solid #333;
+      }
+
+      #bc-input input {
+        flex: 1;
+        padding: 10px;
+        background: #000;
+        color: #fff;
+        border: none;
+        outline: none;
+        font-size: 13px;
+      }
+
+      #bc-input button {
+        background: #f8b400;
+        border: none;
+        padding: 0 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    `;
+    document.head.appendChild(style);
+
+    /* ---------- HTML ---------- */
+    const bubble = document.createElement("div");
+    bubble.id = "bc-bubble";
+    bubble.textContent = "💬";
+
+    const win = document.createElement("div");
+    win.id = "bc-window";
+    win.innerHTML = `
+      <div id="bc-header">
+        <span>Bhuvan Constructions</span>
+        <span id="bc-close" style="cursor:pointer">✕</span>
+      </div>
+      <div id="bc-body">
+        <div class="bc-bot">
+          Hi 👋 I’m the customer care assistant for <b>Bhuvan Constructions</b>.<br><br>
+          📍 Malumichampatti, Coimbatore<br>
+          💰 ₹2,099 per sq.ft<br>
+          🏗️ Residential • Commercial • Interior • Demolition<br><br>
+          Ask me anything about construction.
+        </div>
+      </div>
+      <div id="bc-input">
+        <input id="bc-text" placeholder="Ask about construction…" />
+        <button id="bc-send">Send</button>
+      </div>
+    `;
+
+    document.body.appendChild(bubble);
+    document.body.appendChild(win);
+
+    /* ---------- TOGGLE ---------- */
+    bubble.onclick = () => {
+      win.style.display = win.style.display === "flex" ? "none" : "flex";
+    };
+    win.querySelector("#bc-close").onclick = () => {
+      win.style.display = "none";
+    };
+
+    /* ---------- GEMINI API ---------- */
+    async function askBot(message) {
+  const controller = new AbortController();
+
+  // allow long wait (30s)
+  const timeout = setTimeout(() => controller.abort(), 30000);
+
+  try {
+    const res = await fetch("https://ksnp-bcs.hf.space/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+      signal: controller.signal
+    });
+
+    if (!res.ok) {
+      throw new Error("Server busy");
+    }
+
+    const data = await res.json();
+    return data.reply;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+
+
+    /* ---------- CHAT LOGIC ---------- */
+    const body = win.querySelector("#bc-body");
+    const input = win.querySelector("#bc-text");
+    const send = win.querySelector("#bc-send");
+
+    function addMsg(text, cls) {
+      const div = document.createElement("div");
+      div.className = cls;
+      div.innerHTML = text;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+    }
+
+  send.onclick = async () => {
+  const q = input.value.trim();
+  if (!q) return;
+
+  addMsg("You: " + q, "bc-user");
+  input.value = "";
+
+  addMsg("Typing…", "bc-bot");
+  const typingEl = body.lastChild;
+
+  try {
+    const reply = await askBot(q);   // ✅ correct function
+    typingEl.remove();
+    addMsg(reply, "bc-bot");
+  } catch (e) {
+    typingEl.remove();
+    addMsg(
+      "⚠️ Our assistant is busy right now. Please try again in a few seconds.",
+      "bc-bot"
+    );
+  }
+};
+
+
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") send.click();
+    });
+
+  } catch (err) {
+    console.error("Chatbot failed:", err);
+  }
+})();
+
+
 </script>
 </body>
 </html>
